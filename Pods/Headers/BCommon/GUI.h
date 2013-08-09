@@ -1,1 +1,0 @@
-../../BCommon/BCommon/Classes/common/conf/GUI.h
