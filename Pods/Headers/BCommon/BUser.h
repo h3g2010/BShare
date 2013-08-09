@@ -1,0 +1,1 @@
+../../BCommon/BCommon/Classes/model/member/BUser.h

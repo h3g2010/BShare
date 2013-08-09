@@ -1,0 +1,1 @@
+../../BCommon/BCommon/Classes/common/map/BMapPlace.h

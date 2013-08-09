@@ -1,0 +1,1 @@
+../../BCommon/BCommon/Classes/base/BaseTableViewController.h

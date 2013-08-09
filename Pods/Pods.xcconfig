@@ -1,0 +1,7 @@
+ALWAYS_SEARCH_USER_PATHS = YES
+HEADER_SEARCH_PATHS = ${PODS_HEADERS_SEARCH_PATHS}
+OTHER_LDFLAGS = -ObjC -licucore -lsqlite3 -lsqlite3.0 -lxml2 -lz -framework AVFoundation -framework AudioToolbox -framework CFNetwork -framework CoreFoundation -framework CoreGraphics -framework CoreLocation -framework CoreMedia -framework ImageIO -framework Mapkit -framework MediaPlayer -framework MessageUI -framework MobileCoreServices -framework QuartzCore -framework Security -framework SystemConfiguration -framework UIKit
+PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/AFNetworking" "${PODS_ROOT}/BuildHeaders/BCommon" "${PODS_ROOT}/BuildHeaders/FMDB" "${PODS_ROOT}/BuildHeaders/JSONKit" "${PODS_ROOT}/BuildHeaders/OpenUDID" "${PODS_ROOT}/BuildHeaders/Reachability" "${PODS_ROOT}/BuildHeaders/RegexKitLite" "${PODS_ROOT}/BuildHeaders/ViewDeck"
+PODS_HEADERS_SEARCH_PATHS = ${PODS_PUBLIC_HEADERS_SEARCH_PATHS}
+PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/BCommon" "${PODS_ROOT}/Headers/FMDB" "${PODS_ROOT}/Headers/JSONKit" "${PODS_ROOT}/Headers/OpenUDID" "${PODS_ROOT}/Headers/Reachability" "${PODS_ROOT}/Headers/RegexKitLite" "${PODS_ROOT}/Headers/ViewDeck"
+PODS_ROOT = ${SRCROOT}/Pods
