@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios
 
   s.source_files = 'BShare/Classes/*.{h,m}'
+  s.prefix_header_file = "BShare/BShare-Prefix.pch"
 
   s.subspec 'base' do |base|
 	base.source_files = 'BShare/Classes/base'
