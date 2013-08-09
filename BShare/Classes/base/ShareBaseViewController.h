@@ -8,7 +8,7 @@
 
 #import "XUIViewController.h"
 
-@interface ShareBaseViewController : XUIViewController<ShareViewDelegate>
+@interface ShareBaseViewController : BaseViewController<ShareViewDelegate>
 @property (nonatomic, assign) BOOL canPullBack;
 - (void)shareWithContent:(NSString *)content withImagePath:(NSString *)imagePath;
 - (void)commentWithPlaceholders:(NSString *)placeholders;
