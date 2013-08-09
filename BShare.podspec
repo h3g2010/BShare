@@ -17,6 +17,7 @@ Pod::Spec.new do |s|
 	mod.source_files = 'BShare/Classes/modules'
 	mod.subspec 'share' do |share|
 		share.source_files = 'BShare/Classes/modules/share'
+		share.prefix_header_file = "BShare/BShare-Prefix.pch"
 	end
   end
 
