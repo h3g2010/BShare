@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.subspec 'modules' do |mod|
 	mod.source_files = 'BShare/Classes/modules'
 	mod.subspec 'share' do |share|
-		share.source_files = 'BCommon/Classes/modules/share'
+		share.source_files = 'BShare/Classes/modules/share'
 	end
   end
 
