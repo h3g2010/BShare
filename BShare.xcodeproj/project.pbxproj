@@ -43,13 +43,13 @@
 		83C6B84017B4B48500795E32 /* ShareSDKiPhoneAppRecommendShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C6B82117B4B48500795E32 /* ShareSDKiPhoneAppRecommendShareViewUI.framework */; };
 		83C6B84117B4B48500795E32 /* ShareSDKiPhoneDefaultShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C6B82317B4B48500795E32 /* ShareSDKiPhoneDefaultShareViewUI.framework */; };
 		83C6B84217B4B48500795E32 /* ShareSDKiPhoneSimpleShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C6B82517B4B48500795E32 /* ShareSDKiPhoneSimpleShareViewUI.framework */; };
-		83F2AD3817B4B1B8001ACA62 /* ShareBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD2817B4B1B8001ACA62 /* ShareBaseTableViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83F2AD3917B4B1B8001ACA62 /* ShareBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD2A17B4B1B8001ACA62 /* ShareBaseViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		83F2AD3817B4B1B8001ACA62 /* ShareBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD2817B4B1B8001ACA62 /* ShareBaseTableViewController.m */; };
+		83F2AD3917B4B1B8001ACA62 /* ShareBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD2A17B4B1B8001ACA62 /* ShareBaseViewController.m */; };
 		83F2AD3A17B4B1B8001ACA62 /* BShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD2C17B4B1B8001ACA62 /* BShare.m */; };
-		83F2AD3B17B4B1B8001ACA62 /* SharePlatformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD3017B4B1B8001ACA62 /* SharePlatformView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		83F2AD3B17B4B1B8001ACA62 /* SharePlatformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD3017B4B1B8001ACA62 /* SharePlatformView.m */; };
 		83F2AD3C17B4B1B8001ACA62 /* SharePlatformViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD3217B4B1B8001ACA62 /* SharePlatformViewDelegate.m */; };
-		83F2AD3D17B4B1B8001ACA62 /* ShareUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD3417B4B1B8001ACA62 /* ShareUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83F2AD3E17B4B1B8001ACA62 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD3617B4B1B8001ACA62 /* ShareView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		83F2AD3D17B4B1B8001ACA62 /* ShareUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD3417B4B1B8001ACA62 /* ShareUtils.m */; };
+		83F2AD3E17B4B1B8001ACA62 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AD3617B4B1B8001ACA62 /* ShareView.m */; };
 		F7F25E724D914F9DACA21841 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3081E2223C5467E8559D15F /* libPods.a */; };
 /* End PBXBuildFile section */
 

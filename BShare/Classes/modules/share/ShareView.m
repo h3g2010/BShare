@@ -11,23 +11,12 @@
 #define CountLabelTextHighLightColor [UIColor redColor]
 
 @interface ShareView()<UITextViewDelegate>
-@property (nonatomic, retain) UIView *backgroundView;
+@property (nonatomic, strong) UIView *backgroundView;
 @end
 @implementation ShareView
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    RELEASE(_sharePlatform);
-    RELEASE(_backgroundView);
-    RELEASE(_container);
-    RELEASE(_imageView);
-    RELEASE(_imagePath);
-    RELEASE(_titleLabel);
-    RELEASE(_textView);
-    RELEASE(_countLabel);
-    RELEASE(_placeholderTextView);
-    RELEASE(_placeholders);
-    [super dealloc];
 }
 - (void)setup{
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -40,13 +29,13 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
-    self.backgroundView = AUTORELEASE([[UIView alloc] initWithFrame:self.bounds]);
+    self.backgroundView = /*AUTORELEASE*/([[UIView alloc] initWithFrame:self.bounds]);
     self.backgroundView.backgroundColor = [UIColor clearColor];
     self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self insertSubview:self.backgroundView belowSubview:self.container];
     
     
-    UITapGestureRecognizer *tap = AUTORELEASE([[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancel:)]);
+    UITapGestureRecognizer *tap = /*AUTORELEASE*/([[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancel:)]);
     [self.backgroundView addGestureRecognizer:tap];
     [self setContainerShadow];
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -96,18 +85,17 @@
     self.titleLabel.text = title;
 }
 - (void) setContent:(NSString *)content{
-    RELEASE(_content);
-    _content = RETAIN(content);
+    //RELEASE(_content);
+    _content = /*RETAIN*/(content);
     self.textView.text = content;
 }
 - (void)setPlaceholders:(NSString *)placeholders{
-    RELEASE(_placeholders);
-    _placeholders = [placeholders retain];
+    //RELEASE(_placeholders);
+    _placeholders = placeholders;
     self.placeholderTextView.text = placeholders;
 }
 - (void)setImagePath:(NSString *)imagePath{
-    RELEASE(_imagePath);
-    _imagePath = [imagePath retain];
+    _imagePath = imagePath;
     if ( !imagePath || ( !isURL(imagePath) && ![imagePath fileExists]) ) {
         return;
     }
@@ -135,7 +123,6 @@
 }
 + (id)shareView{
     return (ShareView*)loadViewFromNib([self class], nil);
-    return AUTORELEASE([[ShareView alloc] init]);
 }
 - (void)show{
     [self showInView:[APP keyWindow]];

@@ -18,6 +18,7 @@
 
 @implementation SharePlatformView
 - (void)dealloc{
+    /*
     RELEASE(_backgroundView);
     RELEASE(_shareViews);
     RELEASE(_contentView);
@@ -25,6 +26,7 @@
     RELEASE(_shareContent);
     RELEASE(_shareImagePath);
     [super dealloc];
+     */
 }
 - (id)initWithFrame:(CGRect)frame
 {
@@ -57,17 +59,17 @@
     if (self.contentView) {
         return;
     }
-    self.backgroundView = AUTORELEASE([[UIView alloc] initWithFrame:self.bounds]);
+    self.backgroundView = /*AUTORELEASE*/([[UIView alloc] initWithFrame:self.bounds]);
     self.backgroundView.backgroundColor = [UIColor clearColor];
     self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:self.backgroundView];
     
-    UITapGestureRecognizer *tap = AUTORELEASE([[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancel:)]);
+    UITapGestureRecognizer *tap = /*AUTORELEASE*/([[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancel:)]);
     [self.backgroundView addGestureRecognizer:tap];
     
     UIView *container = [self container];
     CGRect contentViewFrame = CGRectMake(0, 0, container.bounds.size.width, 2000);
-    self.contentView = AUTORELEASE([[UIView alloc] initWithFrame:contentViewFrame]);
+    self.contentView = /*AUTORELEASE*/([[UIView alloc] initWithFrame:contentViewFrame]);
     self.contentView.backgroundColor = [Theme colorForKey:@"shareplatform-view-background"];
     self.contentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     int numOfLine = 4;
@@ -82,7 +84,7 @@
         rect = CGRectMake(column*(rect.size.width+padding)+padding, line*(rect.size.height+10)+padding, rect.size.width, rect.size.height);
         
         SharePlatform *platform = [sharePlatforms objectAtIndex:i];
-        BImageView *iconView = AUTORELEASE([[BImageView alloc] initWithFrame:rect]);
+        BImageView *iconView = /*AUTORELEASE*/([[BImageView alloc] initWithFrame:rect]);
         [iconView addTarget:self action:@selector(shareWithPlatform:)];
         [iconView setTitleStyle:BImageTitleStyleBelow];
         [iconView setImageURL:platform.icon];
@@ -108,7 +110,7 @@
     [self setContentViewShadow];
 }
 + (id)sharePlatformView{
-    return AUTORELEASE([[SharePlatformView alloc] init]);
+    return /*AUTORELEASE*/([[SharePlatformView alloc] init]);
 }
 - (void)show{
     UIView *container = [self container];

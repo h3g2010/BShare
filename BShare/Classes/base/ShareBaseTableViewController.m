@@ -16,8 +16,6 @@
 
 - (void)dealloc{
     [self.tableView setDelegate:nil];
-    RELEASE(_tableView);
-    [super dealloc];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -39,7 +37,7 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     if (!self.tableView) {
-        self.tableView = AUTORELEASE([[TableView alloc] initWithFrame:_frame style:self.tableStyle]);
+        self.tableView = /*AUTORELEASE*/([[TableView alloc] initWithFrame:_frame style:self.tableStyle]);
         self.tableView.autoresizingMask |= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_tableView setDelegate:self];
         [_tableView setDataSource:self];

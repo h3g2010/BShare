@@ -17,10 +17,10 @@
 @end
 
 @interface SharePlatformView : XUIView
-@property (nonatomic, assign) id<SharePlatformViewDelegate> delegate;
+@property (nonatomic, weak) id<SharePlatformViewDelegate> delegate;
 @property (nonatomic, assign) BOOL autoShare;
-@property (nonatomic, retain) NSString *shareContent;
-@property (nonatomic, retain) NSString *shareImagePath;
+@property (nonatomic, strong) NSString *shareContent;
+@property (nonatomic, strong) NSString *shareImagePath;
 + (id)sharePlatformView;
 - (void)show;
 @end

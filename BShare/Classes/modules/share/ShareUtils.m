@@ -25,14 +25,6 @@ NSString *ShatePlatformQQ           = @"QQ";
 @implementation SharePlatform
 
 - (void)dealloc{
-    RELEASE(_name);
-    RELEASE(_platformId);
-    RELEASE(_icon);
-    RELEASE(_appId);
-    RELEASE(_appKey);
-    RELEASE(_appSecret);
-    RELEASE(_redirectUri);
-    [super dealloc];
 }
 - (id) initWithDictionary:(NSDictionary*)dict{
     if(self = [super init]){
@@ -111,7 +103,7 @@ NSString *ShatePlatformQQ           = @"QQ";
     NSMutableArray *platforms = [NSMutableArray arrayWithCapacity:n];
     for (int i = 0; i < n; i++) {
         NSDictionary *conf = [confs objectAtIndex:i];
-        SharePlatform *platform = AUTORELEASE([[SharePlatform alloc] initWithDictionary:conf]);
+        SharePlatform *platform = /*AUTORELEASE*/([[SharePlatform alloc] initWithDictionary:conf]);
         if ([platform enable]) {
             [platforms addObject:platform];
         }
@@ -247,7 +239,7 @@ NSString *ShatePlatformQQ           = @"QQ";
                                }
                                BUser *user = nil;
                                if(result && userInfo){
-                                   user = AUTORELEASE([[BUser alloc] init]);
+                                   user = /*AUTORELEASE*/([[BUser alloc] init]);
                                    user.uid = userInfo.uid;
                                    user.name = userInfo.nickname;
                                    user.avatar = userInfo.icon;

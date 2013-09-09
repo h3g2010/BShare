@@ -22,22 +22,22 @@ typedef int ShareViewType;
 @end
 
 @interface ShareView : XUIView
-@property (nonatomic, retain) IBOutlet UIView *container;
-@property (nonatomic, retain) IBOutlet UILabel *titleLabel;
-@property (nonatomic, retain) IBOutlet UITextView *textView;
-@property (nonatomic, retain) IBOutlet UITextView *placeholderTextView;
-@property (nonatomic, retain) IBOutlet UILabel *countLabel;
-@property (nonatomic, retain) IBOutlet UIButton *cancelBtn;
-@property (nonatomic, retain) IBOutlet UIButton *sendBtn;
-@property (nonatomic, retain) IBOutlet UIImageView *imageView;
-@property (nonatomic, retain) NSString *imagePath;
-@property (nonatomic, retain) NSString *content;
-@property (nonatomic, retain) NSString *placeholders;
+@property (nonatomic, strong) IBOutlet UIView *container;
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UITextView *textView;
+@property (nonatomic, strong) IBOutlet UITextView *placeholderTextView;
+@property (nonatomic, strong) IBOutlet UILabel *countLabel;
+@property (nonatomic, strong) IBOutlet UIButton *cancelBtn;
+@property (nonatomic, strong) IBOutlet UIButton *sendBtn;
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) NSString *imagePath;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *placeholders;
 @property (nonatomic, assign) BOOL showCountLabel;
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, assign) BOOL autoSend;
 @property (nonatomic, assign) ShareViewType shareViewType;
-@property (nonatomic, retain) SharePlatform *sharePlatform;
+@property (nonatomic, strong) SharePlatform *sharePlatform;
 
 + (id)shareView;
 - (void)show;
