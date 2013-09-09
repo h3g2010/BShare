@@ -16,6 +16,7 @@
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    /*
     RELEASE(_sharePlatform);
     RELEASE(_backgroundView);
     RELEASE(_container);
@@ -24,6 +25,7 @@
     RELEASE(_textView);
     RELEASE(_countLabel);
     [super dealloc];
+     */
 }
 
 - (id)init
@@ -76,13 +78,13 @@
     [self setImagePath:self.imagePath];
 }
 - (void) setContent:(NSString *)content{
-    RELEASE(_content);
-    _content = RETAIN(content);
+    //RELEASE(_content);
+    _content = /*RETAIN*/(content);
     self.textView.text = content;
 }
 - (void)setImagePath:(NSString *)imagePath{
-    RELEASE(_imagePath);
-    _imagePath = RETAIN(imagePath);
+    //RELEASE(_imagePath);
+    _imagePath = /*RETAIN*/(imagePath);
     
     if ( !imagePath || ( !isURL(imagePath) && ![imagePath fileExists]) ) {
         return;
