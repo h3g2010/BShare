@@ -12,18 +12,18 @@
 @protocol ShareViewControllerDelegate;
 
 @interface ShareViewController : XUIViewController
-@property (nonatomic, retain) IBOutlet UIView *container;
-@property (nonatomic, retain) IBOutlet UITextView *textView;
-@property (nonatomic, retain) IBOutlet UILabel *countLabel;
-@property (nonatomic, retain) IBOutlet UIImageView *imageView;
-@property (nonatomic, retain) NSString *imagePath;
-@property (nonatomic, retain) NSString *content;
+@property (nonatomic, strong) IBOutlet UIView *container;
+@property (nonatomic, strong) IBOutlet UITextView *textView;
+@property (nonatomic, strong) IBOutlet UILabel *countLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) NSString *imagePath;
+@property (nonatomic, strong) NSString *content;
 @property (nonatomic, assign) BOOL showCountLabel;
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, weak) id delegate;
 @property (nonatomic, assign) BOOL autoSend;
 @property (nonatomic, assign) ShareViewType shareViewType;
-@property (nonatomic, retain) SharePlatform *sharePlatform;
-@property (nonatomic, retain) UIView *backgroundView;
+@property (nonatomic, strong) SharePlatform *sharePlatform;
+@property (nonatomic, strong) UIView *backgroundView;
 
 - (IBAction)send:(id)sender;
 - (IBAction)cancel:(id)sender;

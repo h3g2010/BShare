@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8305905217DDCDD200C1CF37 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8305905017DDCDD200C1CF37 /* ShareViewController.m */; };
 		83A9E6E817B4AD86006BC0BF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A9E6E717B4AD86006BC0BF /* Foundation.framework */; };
 		83A9E6F717B4AD86006BC0BF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A9E6F617B4AD86006BC0BF /* SenTestingKit.framework */; };
 		83A9E6F917B4AD86006BC0BF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A9E6F817B4AD86006BC0BF /* UIKit.framework */; };
@@ -76,6 +77,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8305904F17DDCDD200C1CF37 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		8305905017DDCDD200C1CF37 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		8305905117DDCDD200C1CF37 /* ShareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareViewController.xib; sourceTree = "<group>"; };
 		83A9E6E417B4AD86006BC0BF /* libBShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBShare.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A9E6E717B4AD86006BC0BF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83A9E6EB17B4AD86006BC0BF /* BShare-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BShare-Prefix.pch"; sourceTree = "<group>"; };
@@ -401,6 +405,9 @@
 		83F2AD2E17B4B1B8001ACA62 /* share */ = {
 			isa = PBXGroup;
 			children = (
+				8305904F17DDCDD200C1CF37 /* ShareViewController.h */,
+				8305905017DDCDD200C1CF37 /* ShareViewController.m */,
+				8305905117DDCDD200C1CF37 /* ShareViewController.xib */,
 				83F2AD2F17B4B1B8001ACA62 /* SharePlatformView.h */,
 				83F2AD3017B4B1B8001ACA62 /* SharePlatformView.m */,
 				83F2AD3117B4B1B8001ACA62 /* SharePlatformViewDelegate.h */,
@@ -549,6 +556,7 @@
 				83F2AD3C17B4B1B8001ACA62 /* SharePlatformViewDelegate.m in Sources */,
 				83F2AD3D17B4B1B8001ACA62 /* ShareUtils.m in Sources */,
 				83F2AD3E17B4B1B8001ACA62 /* ShareView.m in Sources */,
+				8305905217DDCDD200C1CF37 /* ShareViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,7 +622,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -637,7 +645,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
