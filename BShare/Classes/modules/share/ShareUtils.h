@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ShareSDK/ShareSDK.h>
 extern NSString *ShatePlatformSinaWeibo;
 extern NSString *ShatePlatformSohuWeibo;
 extern NSString *ShatePlatformTencentWeibo;
@@ -29,6 +30,7 @@ extern NSString *ShatePlatformQQ;
 @property (nonatomic, assign) BOOL bind;
 @property (nonatomic, assign) BOOL canBind;
 @property (nonatomic, assign) int shareType;
+@property (nonatomic, assign) BOOL enable;
 
 - (id) initWithDictionary:(NSDictionary*)dict;
 - (NSDictionary *) dict;

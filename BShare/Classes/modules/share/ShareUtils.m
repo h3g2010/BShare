@@ -7,7 +7,6 @@
 //
 
 #import "ShareUtils.h"
-#import <ShareSDK/ShareSDK.h>
 #import "WXApi.h"
 #import "WBApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
@@ -39,6 +38,12 @@ NSString *ShatePlatformQQ           = @"QQ";
     if(self = [super init]){
         [self setName:nullToNil([dict valueForKey:@"name"])];
         [self setPlatformId:nullToNil([dict valueForKey:@"platformId"])];
+        
+        [self setEnable:YES];
+        id enable = nullToNil([dict valueForKey:@"enable"]);
+        if (enable) {
+            [self setEnable:[enable boolValue]];
+        }
         if (!self.platformId) {
             [self setPlatformId:nullToNil([dict valueForKey:@"id"])];
         }
@@ -82,6 +87,7 @@ NSString *ShatePlatformQQ           = @"QQ";
     if(self.redirectUri)
         [d setValue:self.redirectUri forKey:@"redirectUri"];
     [d setValue:[NSNumber numberWithBool:self.login] forKey:@"login"];
+    [d setValue:[NSNumber numberWithBool:self.enable] forKey:@"enable"];
     [d setValue:[NSNumber numberWithBool:self.canBind] forKey:@"canBind"];
     [d setValue:[NSNumber numberWithInt:self.shareType] forKey:@"shareType"];
     return d;
@@ -105,8 +111,10 @@ NSString *ShatePlatformQQ           = @"QQ";
     NSMutableArray *platforms = [NSMutableArray arrayWithCapacity:n];
     for (int i = 0; i < n; i++) {
         NSDictionary *conf = [confs objectAtIndex:i];
-        SharePlatform *platform = [[SharePlatform alloc] initWithDictionary:conf];
-        [platforms addObject:platform];
+        SharePlatform *platform = AUTORELEASE([[SharePlatform alloc] initWithDictionary:conf]);
+        if ([platform enable]) {
+            [platforms addObject:platform];
+        }
     }
     return platforms;
 }
@@ -210,7 +218,7 @@ NSString *ShatePlatformQQ           = @"QQ";
     }
     return shareType;
 }
-+ (void)loginWithPlatform:(SharePlatform *)platform callback:(void (^)(id user, NSError *error))callback{
++ (id)authOptions{
     SharePlatformViewDelegate *viewDelegate = [SharePlatformViewDelegate defaultDelegate];
     id<ISSAuthOptions> authOptions = [ShareSDK authOptionsWithAutoAuth:YES
                                                          allowCallback:YES
@@ -226,7 +234,10 @@ NSString *ShatePlatformQQ           = @"QQ";
                                     [ShareSDK userFieldWithType:SSUserFieldTypeName valeu:@"张斯特罗"],
                                     SHARE_TYPE_NUMBER(ShareTypeTencentWeibo),
                                     nil]];
-    
+    return authOptions;
+}
++ (void)loginWithPlatform:(SharePlatform *)platform callback:(void (^)(id user, NSError *error))callback{
+    id authOptions = [self authOptions];
     [ShareSDK getUserInfoWithType:platform.shareType
                       authOptions:authOptions
                            result:^(BOOL result, id<ISSUserInfo> userInfo, id<ICMErrorInfo> error) {
@@ -262,22 +273,40 @@ NSString *ShatePlatformQQ           = @"QQ";
     [ShareSDK cancelAuthWithType:platform.shareType];
     return YES;
 }
-+ (void) shareOnPlatform:(NSArray *)platforms withContent:(NSString *)content withImagePath:(NSString *)imagePath callback:(void (^)(NSError *error))callback{
-    DLOG(@"share Image:%@", [UIImage imageWithContentsOfFile:imagePath]);
++ (void) shareOnPlatform:(id)platforms withContent:(NSString *)content withImagePath:(NSString *)imagePath callback:(void (^)(NSError *error))callback{
+    if (![platforms isKindOfClass:[NSArray class]]) {
+        platforms = @[platforms];
+    }
+    if ([platforms count] == 0) {
+        return;
+    }
+    DLOG(@"share Image:%@", imagePath);
     id shareContent = [ShareSDK content:content
                          defaultContent:nil
                                   image:[ShareSDK imageWithPath:imagePath]
-                                  title:nil
-                                    url:nil
-                            description:nil
+                                  title:@"[iVideo]"
+                                    url:@"http://"
+                            description:@"[iVideo]"
                               mediaType:SSPublishContentMediaTypeText];
     NSMutableArray *shareList = [NSMutableArray arrayWithCapacity:3];
     for (SharePlatform *platform in platforms) {
         [shareList addObject:[NSNumber numberWithInt:platform.shareType]];
     }
+    id authOptions = [self authOptions];
+    if ([shareList count] == 1) {
+        [ShareSDK shareContent:shareContent
+                          type:[[shareList objectAtIndex:0] intValue]
+                   authOptions:authOptions
+                 statusBarTips:YES
+                        result:^(ShareType type, SSPublishContentState state, id<ISSStatusInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                            
+                        }];
+        return;
+    }
+    //一键分享
     [ShareSDK oneKeyShareContent:shareContent
                        shareList:shareList
-                     authOptions:nil
+                     authOptions:authOptions
                    statusBarTips:YES
                           result:^(ShareType type, SSPublishContentState state, id<ISSStatusInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
                               if ((state != SSPublishContentStateSuccess) && (state != SSPublishContentStateFail)) {

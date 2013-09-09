@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 baboy. All rights reserved.
 //
 
-#import "XUIView.h"
 #import "ShareUtils.h"
 #import "ShareView.h"
+#define SHARE_ICON_WIDTH    48
 @class SharePlatformView;
 @protocol SharePlatformViewDelegate <NSObject>
 @optional
@@ -17,7 +17,7 @@
 @end
 
 @interface SharePlatformView : XUIView
-@property (nonatomic, assign) id<ShareViewDelegate> delegate;
+@property (nonatomic, assign) id<SharePlatformViewDelegate> delegate;
 @property (nonatomic, assign) BOOL autoShare;
 @property (nonatomic, retain) NSString *shareContent;
 @property (nonatomic, retain) NSString *shareImagePath;

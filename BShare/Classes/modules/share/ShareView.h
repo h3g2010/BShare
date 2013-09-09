@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 baboy. All rights reserved.
 //
 
-#import "XUIView.h"
 #import "ShareUtils.h"
 @class ShareView;
 
@@ -26,10 +25,14 @@ typedef int ShareViewType;
 @property (nonatomic, retain) IBOutlet UIView *container;
 @property (nonatomic, retain) IBOutlet UILabel *titleLabel;
 @property (nonatomic, retain) IBOutlet UITextView *textView;
+@property (nonatomic, retain) IBOutlet UITextView *placeholderTextView;
 @property (nonatomic, retain) IBOutlet UILabel *countLabel;
+@property (nonatomic, retain) IBOutlet UIButton *cancelBtn;
+@property (nonatomic, retain) IBOutlet UIButton *sendBtn;
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 @property (nonatomic, retain) NSString *imagePath;
 @property (nonatomic, retain) NSString *content;
+@property (nonatomic, retain) NSString *placeholders;
 @property (nonatomic, assign) BOOL showCountLabel;
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, assign) BOOL autoSend;
@@ -38,6 +41,7 @@ typedef int ShareViewType;
 
 + (id)shareView;
 - (void)show;
+- (void)showInView:(UIView *)container;
 - (void) setTitle:(NSString *)title;
 - (IBAction)send:(id)sender;
 - (IBAction)cancel:(id)sender;

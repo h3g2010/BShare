@@ -13,6 +13,7 @@
 #import "SharePlatformView.h"
 #import "ShareUtils.h"
 #import "SharePlatformViewDelegate.h"
+#import "ShareViewController.h"
 
 
 @interface BShare : NSObject

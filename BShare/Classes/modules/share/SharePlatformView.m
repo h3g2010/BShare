@@ -8,7 +8,6 @@
 
 #import "SharePlatformView.h"
 
-#define SHARE_ICON_WIDTH    48
 
 @interface SharePlatformView()
 @property (nonatomic, retain) NSArray *shareViews;
@@ -45,11 +44,10 @@
     return self;
 }
 - (void)setContentViewShadow{
-    return ;
     CALayer *layer = self.contentView.layer;
-    [layer setShadowColor:[UIColor colorWithWhite:0 alpha:0.6].CGColor];
-    [layer setShadowOffset:CGSizeMake(0, -2)];
-    [layer setShadowRadius:3.0];
+    [layer setShadowColor:gShadowColor.CGColor];
+    [layer setShadowOffset:CGSizeMake(0, -1)];
+    [layer setShadowRadius:2.0];
     [layer setShadowOpacity:1.0];
 }
 - (UIView *)container{
@@ -70,7 +68,7 @@
     UIView *container = [self container];
     CGRect contentViewFrame = CGRectMake(0, 0, container.bounds.size.width, 2000);
     self.contentView = AUTORELEASE([[UIView alloc] initWithFrame:contentViewFrame]);
-    self.contentView.backgroundColor = [UIColor colorWithRed:0.93f green:0.93f blue:0.93f alpha:1.00f];;
+    self.contentView.backgroundColor = [Theme colorForKey:@"shareplatform-view-background"];
     self.contentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     int numOfLine = 4;
     float padding = (contentViewFrame.size.width - numOfLine*SHARE_ICON_WIDTH)/(numOfLine+1);
@@ -96,10 +94,12 @@
         [self.contentView addSubview:iconView];
     }
     self.shareViews = shareViews;
-    UIButton *cancenBtn = AUTORELEASE([[UIButton alloc] initWithFrame:CGRectMake(10, rect.origin.y + rect.size.height + 10, contentViewFrame.size.width-20, 24)]);
-    [cancenBtn setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
-    [cancenBtn setBackgroundColor:[UIColor grayColor]];
-    [cancenBtn addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *cancenBtn = [Theme buttonForStyle:@"cancel"
+                                      withTitle:NSLocalizedString(@"取 消", nil)
+                                          frame:CGRectMake(10, rect.origin.y + rect.size.height + 10, contentViewFrame.size.width-20, 36)
+                                         target:self
+                                         action:@selector(cancel:)];
+    
     [self.contentView addSubview:cancenBtn];
     contentViewFrame.size.height = cancenBtn.frame.origin.y + cancenBtn.frame.size.height + 10;
     contentViewFrame.origin.y = self.frame.size.height - contentViewFrame.size.height;
@@ -133,12 +133,12 @@
 }
 - (IBAction)shareWithPlatform:(id)sender{
     SharePlatform *platform = [sender object];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(shareView:willSelectSharePlatform:)]) {
-        [self.delegate shareView:self willSelectSharePlatform:platform];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(sharePlatformView:willSelectSharePlatform:)]) {
+        [self.delegate sharePlatformView:self didSelectedSharePlatform:platform];
     }
     [self cancelWithBlock:^{
-        if (self.delegate && [self.delegate respondsToSelector:@selector(shareView:didSelectedSharePlatform:)]) {
-            [self.delegate shareView:self didSelectedSharePlatform:platform];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(sharePlatformView:didSelectedSharePlatform:)]) {
+            [self.delegate sharePlatformView:self didSelectedSharePlatform:platform];
         }
         if(self.autoShare){
             ShareView *shareView = [ShareView shareView];

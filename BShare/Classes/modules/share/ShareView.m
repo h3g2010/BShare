@@ -7,6 +7,9 @@
 //
 
 #import "ShareView.h"
+#define CountLabelTextColor [UIColor blackColor]
+#define CountLabelTextHighLightColor [UIColor redColor]
+
 @interface ShareView()<UITextViewDelegate>
 @property (nonatomic, retain) UIView *backgroundView;
 @end
@@ -22,46 +25,72 @@
     RELEASE(_titleLabel);
     RELEASE(_textView);
     RELEASE(_countLabel);
+    RELEASE(_placeholderTextView);
+    RELEASE(_placeholders);
     [super dealloc];
+}
+- (void)setup{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    self.backgroundView = AUTORELEASE([[UIView alloc] initWithFrame:self.bounds]);
+    self.backgroundView.backgroundColor = [UIColor clearColor];
+    self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self insertSubview:self.backgroundView belowSubview:self.container];
+    
+    
+    UITapGestureRecognizer *tap = AUTORELEASE([[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancel:)]);
+    [self.backgroundView addGestureRecognizer:tap];
+    [self setContainerShadow];
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 }
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        [self setup];
     }
     return self;
 }
 - (id)init{
-    self = (ShareView*)[loadViewFromNib([self class], nil) retain] ;
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillShow:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillHide:)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
-        
-        self.backgroundView = AUTORELEASE([[UIView alloc] initWithFrame:self.bounds]);
-        self.backgroundView.backgroundColor = [UIColor clearColor];
-        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self insertSubview:self.backgroundView belowSubview:self.container];
-        
-        
-        UITapGestureRecognizer *tap = AUTORELEASE([[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancel:)]);
-        [self.backgroundView addGestureRecognizer:tap];
-        [self setContainerShadow];
+    if (self = [super init]) {
+        [self setup];
     }
     return self;
+}
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super initWithCoder:aDecoder]) {
+    }
+    return self;
+}
+- (void)awakeFromNib{
+    [self setup];
+    self.container.backgroundColor = [Theme colorForKey:@"share-view-background"];
+    self.cancelBtn.backgroundColor = [Theme colorForKey:@"button-cancel-background"];
+    self.cancelBtn.titleLabel.font = [Theme fontForKey:@"button-cancel-title"];
+    self.cancelBtn.titleLabel.textColor = [Theme colorForKey:@"button-cancel-title"];
+    
+    self.sendBtn.backgroundColor = [Theme colorForKey:@"button-submit-background"];
+    self.sendBtn.titleLabel.font = [Theme fontForKey:@"button-submit-title"];
+    self.sendBtn.titleLabel.textColor = [Theme colorForKey:@"button-submit-title"];
+    [self.textView.superview.layer setBorderColor:[UIColor colorWithWhite:0.85 alpha:1.0].CGColor];
+    
+    [self.textView.superview.layer setBorderWidth:1.0];
 }
 - (void)setContainerShadow{
     [self.container.layer setShadowColor:[UIColor colorWithWhite:0 alpha:0.6].CGColor];
     [self.container.layer setShadowOffset:CGSizeMake(0, -2)];
     [self.container.layer setShadowRadius:3.0];
     [self.container.layer setShadowOpacity:1.0];
+    
 }
 - (void) setTitle:(NSString *)title{
     self.titleLabel.text = title;
@@ -71,10 +100,19 @@
     _content = RETAIN(content);
     self.textView.text = content;
 }
+- (void)setPlaceholders:(NSString *)placeholders{
+    RELEASE(_placeholders);
+    _placeholders = [placeholders retain];
+    self.placeholderTextView.text = placeholders;
+}
 - (void)setImagePath:(NSString *)imagePath{
     RELEASE(_imagePath);
-    _imagePath = RETAIN(imagePath);
-    self.imageView.image = [UIImage imageWithContentsOfFile:imagePath];;
+    _imagePath = [imagePath retain];
+    if ( !imagePath || ( !isURL(imagePath) && ![imagePath fileExists]) ) {
+        return;
+    }
+    NSURL *imageURL = isURL(imagePath) ? [NSURL URLWithString:imagePath] : [NSURL fileURLWithPath:imagePath];
+    [self.imageView setImageURL:imageURL];
 }
 - (void)layout{
     CGRect containerFrame = self.container.frame;
@@ -88,13 +126,15 @@
         containerFrame.size.height += 25;
     }
     if (self.imagePath) {
-        textFrame.size.width -= 80;
+        textFrame.size.width -= self.imageView.frame.size.width + 10;
     }
     containerFrame.origin.y = self.bounds.size.height - containerFrame.size.height;
     self.textView.frame = textFrame;
+    self.placeholderTextView.frame = textFrame;
     self.container.frame = containerFrame;
 }
 + (id)shareView{
+    return (ShareView*)loadViewFromNib([self class], nil);
     return AUTORELEASE([[ShareView alloc] init]);
 }
 - (void)show{
@@ -134,9 +174,10 @@
     }
     if (self.autoSend && self.sharePlatform) {
         //分享
+        NSString *imagePath = isURL(self.imagePath) ? [UIImageView cachePathForURL:[NSURL URLWithString:self.imagePath]] : self.imagePath;
         [ShareUtils shareOnPlatform:[NSArray arrayWithObject:self.sharePlatform]
                         withContent:self.textView.text
-                      withImagePath:self.imagePath
+                      withImagePath:imagePath
                            callback:^(NSError *error) {
                                DLOG(@"Share error:%@", error);
                            }];
@@ -196,10 +237,12 @@
 }
 - (void)updateCountLabel{
     int textCount = 140 - [self.textView.text textCount];
+    self.textView.textColor = textCount >= 0 ? CountLabelTextColor : CountLabelTextHighLightColor;
     self.countLabel.text = [NSString stringWithFormat:@"%d", textCount];
 }
 #pragma UITextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView{
     [self updateCountLabel];
+    self.placeholderTextView.text = [textView.text length] > 0 ? nil : self.placeholders;
 }
 @end
