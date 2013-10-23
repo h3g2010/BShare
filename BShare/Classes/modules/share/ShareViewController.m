@@ -16,6 +16,16 @@
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    /*
+    RELEASE(_sharePlatform);
+    RELEASE(_backgroundView);
+    RELEASE(_container);
+    RELEASE(_imageView);
+    RELEASE(_imagePath);
+    RELEASE(_textView);
+    RELEASE(_countLabel);
+    [super dealloc];
+     */
 }
 
 - (id)init

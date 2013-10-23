@@ -44,6 +44,7 @@ extern NSString *ShatePlatformQQ;
 + (void)setupWithKey:(NSString *)key;
 + (NSArray *)platforms;
 + (NSArray *)bindPlatforms;
++ (SharePlatform *)platform:(NSString *)platformId;
 + (void)loginWithPlatform:(SharePlatform *)platform callback:(void (^)(id user, NSError *error))callback;
 + (BOOL) hasAuthorizedWithPlatform:(SharePlatform *)platform;
 + (BOOL) cancelAuthWithPlatform:(SharePlatform *)platform;

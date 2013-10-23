@@ -121,6 +121,15 @@ NSString *ShatePlatformQQ           = @"QQ";
     }
     return bindPlatforms;
 }
++ (SharePlatform *)platform:(NSString *)platformId{
+    NSArray *platforms = [self platforms];
+    for (SharePlatform *platform in platforms) {
+        if ([platform.platformId isEqualToString:platformId]) {
+            return platform;
+        }
+    }
+    return nil;
+}
 + (void) setupWithKey:(NSString *)key{
     [ShareSDK registerApp:key];
     //添加新浪微博应用
