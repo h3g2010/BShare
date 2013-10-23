@@ -13,14 +13,14 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "SharePlatformViewDelegate.h"
 
-NSString *ShatePlatformSinaWeibo    = @"SinaWeibo";
-NSString *ShatePlatformSohuWeibo    = @"SohuWeibo";
-NSString *ShatePlatformTencentWeibo = @"TencentWeibo";
-NSString *ShatePlatformQZone        = @"QZone";
-NSString *ShatePlatformDouban       = @"Douban";
-NSString *ShatePlatformRenRen       = @"RenRen";
-NSString *ShatePlatformWeChat       = @"WeChat";
-NSString *ShatePlatformQQ           = @"QQ";
+NSString *SharePlatformSinaWeibo    = @"SinaWeibo";
+NSString *SharePlatformSohuWeibo    = @"SohuWeibo";
+NSString *SharePlatformTencentWeibo = @"TencentWeibo";
+NSString *SharePlatformQZone        = @"QZone";
+NSString *SharePlatformDouban       = @"Douban";
+NSString *SharePlatformRenRen       = @"RenRen";
+NSString *SharePlatformWeChat       = @"WeChat";
+NSString *SharePlatformQQ           = @"QQ";
 
 @implementation SharePlatform
 
@@ -134,14 +134,14 @@ NSString *ShatePlatformQQ           = @"QQ";
     [ShareSDK registerApp:key];
     //添加新浪微博应用
     NSArray *platforms = [self platforms];
-    SharePlatform *platform = [self confForApp:ShatePlatformSinaWeibo withConfigs:platforms];
+    SharePlatform *platform = [self confForApp:SharePlatformSinaWeibo withConfigs:platforms];
     if (platform)
         [ShareSDK connectSinaWeiboWithAppKey:platform.appKey
                                    appSecret:platform.appSecret
                                  redirectUri:platform.redirectUri];
     
     //添加腾讯微博应用
-    platform = [self confForApp:ShatePlatformTencentWeibo withConfigs:platforms];
+    platform = [self confForApp:SharePlatformTencentWeibo withConfigs:platforms];
     if (platform)
         [ShareSDK connectTencentWeiboWithAppKey:platform.appKey
                                       appSecret:platform.appSecret
@@ -149,7 +149,7 @@ NSString *ShatePlatformQQ           = @"QQ";
                                        wbApiCls:[WBApi class]];
     
     //添加QQ空间应用
-    platform = [self confForApp:ShatePlatformQZone withConfigs:platforms];
+    platform = [self confForApp:SharePlatformQZone withConfigs:platforms];
     if (platform)
         [ShareSDK connectQZoneWithAppKey:platform.appKey
                                appSecret:platform.appSecret
@@ -157,32 +157,32 @@ NSString *ShatePlatformQQ           = @"QQ";
                          tencentOAuthCls:[TencentOAuth class]];
     
     //添加搜狐微博应用
-    platform = [self confForApp:ShatePlatformSohuWeibo withConfigs:platforms];
+    platform = [self confForApp:SharePlatformSohuWeibo withConfigs:platforms];
     if (platform)
         [ShareSDK connectSohuWeiboWithConsumerKey:platform.appKey
                                    consumerSecret:platform.appSecret
                                       redirectUri:platform.redirectUri];
     
     //添加豆瓣应用
-    platform = [self confForApp:ShatePlatformDouban withConfigs:platforms];
+    platform = [self confForApp:SharePlatformDouban withConfigs:platforms];
     if (platform)
         [ShareSDK connectDoubanWithAppKey:platform.appKey
                                 appSecret:platform.appSecret
                               redirectUri:platform.redirectUri];
     
     //添加人人网应用
-    platform = [self confForApp:ShatePlatformRenRen withConfigs:platforms];
+    platform = [self confForApp:SharePlatformRenRen withConfigs:platforms];
     if (platform)
         [ShareSDK connectRenRenWithAppKey:platform.appKey
                                 appSecret:platform.appSecret];
     
     //添加微信应用
-    platform = [self confForApp:ShatePlatformWeChat withConfigs:platforms];
+    platform = [self confForApp:SharePlatformWeChat withConfigs:platforms];
     if (platform)
         [ShareSDK connectWeChatWithAppId:platform.appId
                                wechatCls:[WXApi class]];
     //添加QQ应用
-    platform = [self confForApp:ShatePlatformQQ withConfigs:platforms];
+    platform = [self confForApp:SharePlatformQQ withConfigs:platforms];
     if (platform)
         [ShareSDK connectQQWithAppId:platform.appId qqApiCls:[QQApi class]];
     
@@ -202,19 +202,19 @@ NSString *ShatePlatformQQ           = @"QQ";
     NSString *pid = [platformId lowercaseString];
     ShareType shareType = 0;
     //新浪登录
-    if ([pid isEqualToString:[ShatePlatformSinaWeibo lowercaseString]]) {
+    if ([pid isEqualToString:[SharePlatformSinaWeibo lowercaseString]]) {
         shareType = ShareTypeSinaWeibo;
     }
     //QQ登录
-    else if ([pid isEqualToString:[ShatePlatformQQ lowercaseString]]) {
+    else if ([pid isEqualToString:[SharePlatformQQ lowercaseString]]) {
         shareType = ShareTypeQQ;
     }
     //人人登录
-    else if ([pid isEqualToString:[ShatePlatformRenRen lowercaseString]]) {
+    else if ([pid isEqualToString:[SharePlatformRenRen lowercaseString]]) {
         shareType = ShareTypeRenren;
     }
     //豆瓣登录
-    else if ([pid isEqualToString:[ShatePlatformDouban lowercaseString]]) {
+    else if ([pid isEqualToString:[SharePlatformDouban lowercaseString]]) {
         shareType = ShareTypeDouBan;
     }
     return shareType;

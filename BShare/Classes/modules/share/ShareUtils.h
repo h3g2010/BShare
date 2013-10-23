@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <ShareSDK/ShareSDK.h>
-extern NSString *ShatePlatformSinaWeibo;
-extern NSString *ShatePlatformSohuWeibo;
-extern NSString *ShatePlatformTencentWeibo;
-extern NSString *ShatePlatformQZone;
-extern NSString *ShatePlatformDouban;
-extern NSString *ShatePlatformRenRen;
-extern NSString *ShatePlatformWeChat;
-extern NSString *ShatePlatformQQ;
+extern NSString *SharePlatformSinaWeibo;
+extern NSString *SharePlatformSohuWeibo;
+extern NSString *SharePlatformTencentWeibo;
+extern NSString *SharePlatformQZone;
+extern NSString *SharePlatformDouban;
+extern NSString *SharePlatformRenRen;
+extern NSString *SharePlatformWeChat;
+extern NSString *SharePlatformQQ;
 
 @interface SharePlatform : NSObject
 
