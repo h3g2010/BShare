@@ -14,8 +14,7 @@
 
 @implementation ShareViewController
 - (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     /*
     RELEASE(_sharePlatform);
     RELEASE(_backgroundView);
