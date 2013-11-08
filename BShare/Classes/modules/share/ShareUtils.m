@@ -300,7 +300,18 @@ NSString *SharePlatformQQ           = @"QQ";
                    authOptions:authOptions
                  statusBarTips:YES
                         result:^(ShareType type, SSPublishContentState state, id<ISSStatusInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
-                            
+                            if (state == SSPublishContentStateBegan) {
+                                return ;
+                            }
+                            DLOG(@"share state:%d", state);
+                            if (callback) {
+                                NSError *err = nil;
+                                if (error) {
+                                    id userInfo = @{NSLocalizedDescriptionKey:[error errorDescription]?:@""};
+                                    err = [NSError errorWithDomain:@"Login error" code:[error errorCode] userInfo:userInfo];
+                                }
+                                callback(err);
+                            }
                         }];
         return;
     }
@@ -314,7 +325,7 @@ NSString *SharePlatformQQ           = @"QQ";
                                   return ;
                               }
                               NSError *err = nil;
-                              if (state == SSPublishContentStateFail){
+                              if (state == SSPublishContentStateFail && error){
                                   err = [NSError errorWithDomain:@"Login error" code:[error errorCode] userInfo:[NSDictionary dictionaryWithObject:[error errorDescription] forKey:NSLocalizedDescriptionKey]];
                               }
                               if(callback){

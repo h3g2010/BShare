@@ -115,23 +115,25 @@
     }
     if (self.autoSend && self.sharePlatform) {
         //分享
+        __block BOOL isSend = NO;
         [ShareUtils shareOnPlatform:[NSArray arrayWithObject:self.sharePlatform]
                         withContent:self.textView.text
                       withImagePath:self.imagePath
                            callback:^(NSError *error) {
                                DLOG(@"Share error:%@", error);
                                NSString *msg = error ? [error localizedDescription] : NSLocalizedString(@"分享成功", nil) ;
-                               [BIndicator showMessageAndFadeOut:msg];
+                               [self showMessageAndFadeOut:msg];
+                               @synchronized(self){
+                                   if (!error && !isSend) {
+                                       isSend = YES;
+                                       [self performSelector:@selector(didSend) withObject:nil afterDelay:1.0];
+                                   }
+                               }
                            }];
-    }
-    if (shouldCancel) {
-        [self didSend];
-        [self dismissModalViewControllerAnimated:NO];
     }
 }
 - (IBAction)cancel:(id)sender{
     [self didCancel];
-    [self dismissModalViewControllerAnimated:NO];
 }
 
 #pragma keyboard listener
@@ -184,10 +186,12 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(shareControllerDidCancel:)]) {
         [self.delegate shareControllerDidCancel:self];
     }
+    [self dismissModalViewControllerAnimated:NO];
 }
 - (void)didSend{
     if (self.delegate && [self.delegate respondsToSelector:@selector(shareControllerDidSend:)]) {
         [self.delegate shareControllerDidSend:self];
     }
+    [self dismissModalViewControllerAnimated:NO];
 }
 @end
