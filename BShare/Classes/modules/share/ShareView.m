@@ -223,8 +223,8 @@
                      }];
 }
 - (void)updateCountLabel{
-    int textCount = 140 - [self.textView.text textCount];
-    self.textView.textColor = textCount >= 0 ? CountLabelTextColor : CountLabelTextHighLightColor;
+    int textCount = 140 - [self.textView.text length];
+    self.countLabel.textColor = textCount >= 0 ? CountLabelTextColor : CountLabelTextHighLightColor;
     self.countLabel.text = [NSString stringWithFormat:@"%d", textCount];
 }
 #pragma UITextViewDelegate

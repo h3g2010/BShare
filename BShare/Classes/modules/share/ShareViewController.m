@@ -64,7 +64,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self layout];
     [self performSelector:@selector(setContainerShadow) withObject:nil afterDelay:0.1];
     [self.textView becomeFirstResponder];
     self.navigationItem.leftBarButtonItem = [Theme navBarButtonForKey:@"navigationbar-back-button" withTarget:self action:@selector(cancel:)];
@@ -76,6 +75,8 @@
                                        action:@selector(send:)];
     [self setContent:self.content];
     [self setImagePath:self.imagePath];
+    [self layout];
+    [self updateCountLabel];
 }
 - (void) setContent:(NSString *)content{
     //RELEASE(_content);
@@ -166,8 +167,9 @@
 - (void)keyboardWillHide:(NSNotification *)notif{
 }
 - (void)updateCountLabel{
-    int textCount = 140 - [self.textView.text textCount];
+    int textCount = 140 - [self.textView.text length];
     self.countLabel.text = [NSString stringWithFormat:@"%d", textCount];
+    self.countLabel.textColor = textCount>=0 ? [UIColor blackColor] : [UIColor redColor];
 }
 #pragma UITextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView{
