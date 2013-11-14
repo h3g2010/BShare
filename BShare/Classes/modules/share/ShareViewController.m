@@ -34,6 +34,7 @@
         // Custom initialization
         [self setup];
         self.autoSend = YES;
+        self.showCountLabel = YES;
     }
     return self;
 }
@@ -64,7 +65,7 @@
 {
     [super viewDidLoad];
     [self layout];
-    [self setContainerShadow];
+    [self performSelector:@selector(setContainerShadow) withObject:nil afterDelay:0.1];
     [self.textView becomeFirstResponder];
     self.navigationItem.leftBarButtonItem = [Theme navBarButtonForKey:@"navigationbar-back-button" withTarget:self action:@selector(cancel:)];
     
