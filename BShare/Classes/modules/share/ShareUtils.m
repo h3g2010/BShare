@@ -51,6 +51,7 @@ NSString *SharePlatformQQ           = @"QQ";
         [self setRedirectUri:nullToNil([dict valueForKey:@"redirectUri"])];
         [self setLogin:[[dict valueForKey:@"login"] boolValue]];
         [self setShareType:[[dict valueForKey:@"shareType"] intValue]];
+        [self setOnekeyShare:[[dict valueForKey:@"onekeyShare"] boolValue]];
         
         
     }
@@ -125,6 +126,15 @@ NSString *SharePlatformQQ           = @"QQ";
     NSArray *platforms = [self platforms];
     for (SharePlatform *platform in platforms) {
         if ([platform.platformId isEqualToString:platformId]) {
+            return platform;
+        }
+    }
+    return nil;
+}
++ (SharePlatform *)platformWithType:(int)shareType{
+    NSArray *platforms = [self platforms];
+    for (SharePlatform *platform in platforms) {
+        if ( platform.shareType == shareType ) {
             return platform;
         }
     }

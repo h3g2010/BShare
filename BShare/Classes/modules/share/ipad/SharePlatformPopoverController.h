@@ -8,6 +8,7 @@
 
 #import "AppBaseViewController.h"
 #import "SharePlatformView.h"
+#import "UIPopoverCustomBackgroundView.h"
 
 @class SharePlatformPopoverController;
 @protocol SharePlatformPopoverControllerDelegate <NSObject>
@@ -17,8 +18,9 @@
 @end
 
 @interface SharePlatformPopoverController : AppBaseViewController
-
+@property (nonatomic, weak) UIPopoverController *popover;
 @property (nonatomic, assign) BOOL autoShare;
+@property (nonatomic, strong) NSString *shareImagePath;
 @property (nonatomic, strong) IBOutlet UIScrollView *contentView;
 @property (nonatomic, strong) id<SharePlatformPopoverControllerDelegate>delegate;
 @end

@@ -8,6 +8,7 @@
 
 #import "XUIViewController.h"
 #import "ShareViewController.h"
+@protocol ShareModalViewControllerDelegate;
 @interface ShareModalViewController : XUIViewController
 
 @property (nonatomic, strong) IBOutlet UIView *container;
@@ -22,8 +23,15 @@
 @property (nonatomic, assign) ShareViewType shareViewType;
 @property (nonatomic, strong) SharePlatform *sharePlatform;
 @property (nonatomic, strong) UIView *backgroundView;
+@property (nonatomic, strong) id params;
+@property (nonatomic, strong) IBOutlet UIView *platformContainer;
 
 - (IBAction)send:(id)sender;
 - (IBAction)cancel:(id)sender;
 @end
 
+@protocol ShareModalViewControllerDelegate <NSObject>
+@optional
+- (BOOL)shareModalViewController:(ShareModalViewController *)modalController shouldSendContent:(NSString *)content withImagePath:(NSString *)imagePath;
+
+@end

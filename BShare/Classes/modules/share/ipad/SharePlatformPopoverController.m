@@ -68,11 +68,14 @@
     }
     if(self.autoShare){
         ShareModalViewController *vc = [[ShareModalViewController alloc] init];
+        vc.shareViewType = ShareViewTypeShare;
         vc.autoSend = YES;
         vc.sharePlatform = platform;
+        vc.imagePath = self.shareImagePath;
         SlidingNavigationController *nav = [[SlidingNavigationController alloc] initWithRootViewController:vc];
         nav.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:nav animated:YES];
     }
+    [self.popover dismissPopoverAnimated:YES];
 }
 @end

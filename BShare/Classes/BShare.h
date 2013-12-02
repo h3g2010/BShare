@@ -14,6 +14,8 @@
 #import "ShareUtils.h"
 #import "SharePlatformViewDelegate.h"
 #import "ShareViewController.h"
+#import "SharePlatformPopoverController.h"
+#import "ShareModalViewController.h"
 
 
 @interface BShare : NSObject

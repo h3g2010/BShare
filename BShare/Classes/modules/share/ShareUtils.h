@@ -31,6 +31,7 @@ extern NSString *SharePlatformQQ;
 @property (nonatomic, assign) BOOL canBind;
 @property (nonatomic, assign) int shareType;
 @property (nonatomic, assign) BOOL enable;
+@property (nonatomic, assign) BOOL onekeyShare;
 
 - (id) initWithDictionary:(NSDictionary*)dict;
 - (NSDictionary *) dict;
@@ -45,6 +46,7 @@ extern NSString *SharePlatformQQ;
 + (NSArray *)platforms;
 + (NSArray *)bindPlatforms;
 + (SharePlatform *)platform:(NSString *)platformId;
++ (SharePlatform *)platformWithType:(int)shareType;
 + (void)loginWithPlatform:(SharePlatform *)platform callback:(void (^)(id user, NSError *error))callback;
 + (BOOL) hasAuthorizedWithPlatform:(SharePlatform *)platform;
 + (BOOL) cancelAuthWithPlatform:(SharePlatform *)platform;
