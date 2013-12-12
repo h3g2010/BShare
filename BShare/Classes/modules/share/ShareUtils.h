@@ -20,6 +20,7 @@ extern NSString *SharePlatformQQ;
 @interface SharePlatform : NSObject
 
 @property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString *platform;
 @property (nonatomic, retain) NSString *platformId;
 @property (nonatomic, retain) NSString *icon;
 @property (nonatomic, retain) NSString *appId;
@@ -45,6 +46,7 @@ extern NSString *SharePlatformQQ;
 + (void)setupWithKey:(NSString *)key;
 + (NSArray *)platforms;
 + (NSArray *)bindPlatforms;
++ (NSArray *)loginPlatforms;
 + (SharePlatform *)platform:(NSString *)platformId;
 + (SharePlatform *)platformWithType:(int)shareType;
 + (void)loginWithPlatform:(SharePlatform *)platform callback:(void (^)(id user, NSError *error))callback;

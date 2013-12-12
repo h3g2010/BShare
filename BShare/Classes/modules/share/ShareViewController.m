@@ -197,4 +197,11 @@
     }
     [self dismissModalViewControllerAnimated:NO];
 }
+
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+- (BOOL)shouldAutorotate{
+    return NO;
+}
 @end

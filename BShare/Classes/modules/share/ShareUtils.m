@@ -29,6 +29,7 @@ NSString *SharePlatformQQ           = @"QQ";
 - (id) initWithDictionary:(NSDictionary*)dict{
     if(self = [super init]){
         [self setName:nullToNil([dict valueForKey:@"name"])];
+        [self setPlatform:nullToNil([dict valueForKey:@"platform"])];
         [self setPlatformId:nullToNil([dict valueForKey:@"platformId"])];
         
         [self setEnable:YES];
@@ -40,10 +41,11 @@ NSString *SharePlatformQQ           = @"QQ";
             [self setPlatformId:nullToNil([dict valueForKey:@"id"])];
         }
         NSString *iconName = [dict valueForKey:@"icon"];
-        if (iconName) {
-            NSString *iconPath = getBundleFileFromBundle(iconName, @"png", @"Resource", @"Icon");
-            [self setIcon:iconPath];
+        NSString *iconPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@@2x",iconName] ofType:@"png"];
+        if (iconName && !iconPath) {
+            iconPath = getBundleFileFromBundle(iconName, @"png", @"Resource", @"Icon");
         }
+        [self setIcon:iconPath];
         [self setCanBind:[nullToNil([dict valueForKey:@"canBind"]) boolValue]];
         [self setAppId:nullToNil([dict valueForKey:@"appId"])];
         [self setAppKey:nullToNil([dict valueForKey:@"appKey"])];
@@ -117,6 +119,17 @@ NSString *SharePlatformQQ           = @"QQ";
     for (int i=0, n = [platforms count]; i<n; i++) {
         SharePlatform *platform = [platforms objectAtIndex:i];
         if (platform.canBind) {
+            [bindPlatforms addObject:platform];
+        }
+    }
+    return bindPlatforms;
+}
++ (NSArray *)loginPlatforms{
+    NSMutableArray *bindPlatforms = [NSMutableArray arrayWithCapacity:5];
+    NSArray *platforms = [self platforms];
+    for (int i=0, n = [platforms count]; i<n; i++) {
+        SharePlatform *platform = [platforms objectAtIndex:i];
+        if (platform.login) {
             [bindPlatforms addObject:platform];
         }
     }
@@ -260,15 +273,16 @@ NSString *SharePlatformQQ           = @"QQ";
                                if(result && userInfo){
                                    user = /*AUTORELEASE*/([[BUser alloc] init]);
                                    user.uid = userInfo.uid;
-                                   user.name = userInfo.nickname;
+                                   user.nickname = userInfo.nickname;
                                    user.avatar = userInfo.icon;
                                    user.birthday = userInfo.birthday;
-                                   user.gender = userInfo.gender;
+                                   user.gender = userInfo.gender?0:1;
                                    user.age = userInfo.age;
                                    user.mobile = userInfo.mobile;
                                    user.education = userInfo.education;
                                    user.school = userInfo.school;
                                    NSMutableDictionary *meta = [NSMutableDictionary dictionaryWithDictionary:[userInfo sourceData]];
+                                   user.signature = [[userInfo sourceData] valueForKey:@"description"];
                                    user.metadata = meta;
                                    
                                }

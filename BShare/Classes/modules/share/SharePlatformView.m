@@ -96,7 +96,7 @@
         [self.contentView addSubview:iconView];
     }
     self.shareViews = shareViews;
-    UIButton *cancenBtn = [Theme buttonForStyle:@"cancel"
+    UIButton *cancenBtn = [Theme buttonForStyle:@"shareplatform-cancel"
                                       withTitle:NSLocalizedString(@"取 消", nil)
                                           frame:CGRectMake(10, rect.origin.y + rect.size.height + 10, contentViewFrame.size.width-20, 36)
                                          target:self

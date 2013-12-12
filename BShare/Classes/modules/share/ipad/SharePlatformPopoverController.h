@@ -18,7 +18,7 @@
 @end
 
 @interface SharePlatformPopoverController : AppBaseViewController
-@property (nonatomic, weak) UIPopoverController *popover;
+@property (nonatomic, strong) UIPopoverController *popover;
 @property (nonatomic, assign) BOOL autoShare;
 @property (nonatomic, strong) NSString *shareImagePath;
 @property (nonatomic, strong) IBOutlet UIScrollView *contentView;
