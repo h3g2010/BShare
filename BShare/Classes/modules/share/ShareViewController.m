@@ -158,8 +158,8 @@
     [UIView setAnimationCurve:[curve intValue]];
 	// set views with new info
 	self.container.frame = containerFrame;
-    CGAffineTransform transform = CGAffineTransformMakeScale(  0.97,  0.97 );
-    [[APPRootController view] setTransform:transform];
+    //CGAffineTransform transform = CGAffineTransformMakeScale(  0.97,  0.97 );
+    //[[APPRootController view] setTransform:transform];
 	
 	// commit animations
 	[UIView commitAnimations];
