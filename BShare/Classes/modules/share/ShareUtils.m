@@ -51,11 +51,10 @@ NSString *SharePlatformQQ           = @"QQ";
         [self setAppKey:nullToNil([dict valueForKey:@"appKey"])];
         [self setAppSecret:nullToNil([dict valueForKey:@"appSecret"])];
         [self setRedirectUri:nullToNil([dict valueForKey:@"redirectUri"])];
-        [self setLogin:[[dict valueForKey:@"login"] boolValue]];
-        [self setShareType:[[dict valueForKey:@"shareType"] intValue]];
-        [self setOnekeyShare:[[dict valueForKey:@"onekeyShare"] boolValue]];
-        
-        
+        [self setLogin:[nullToNil([dict valueForKey:@"login"]) boolValue]];
+        [self setShareType:[nullToNil([dict valueForKey:@"shareType"]) intValue]];
+        [self setOnekeyShare:[nullToNil([dict valueForKey:@"onekeyShare"]) boolValue]];
+        [self setBackgroundColor:[Theme color:nullToNil([dict valueForKey:@"background-color"])]];
     }
     return self;
 }

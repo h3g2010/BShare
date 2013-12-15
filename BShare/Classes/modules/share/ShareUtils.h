@@ -33,6 +33,7 @@ extern NSString *SharePlatformQQ;
 @property (nonatomic, assign) int shareType;
 @property (nonatomic, assign) BOOL enable;
 @property (nonatomic, assign) BOOL onekeyShare;
+@property (nonatomic, strong) UIColor *backgroundColor;
 
 - (id) initWithDictionary:(NSDictionary*)dict;
 - (NSDictionary *) dict;
