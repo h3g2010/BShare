@@ -66,10 +66,23 @@
     self.cancelBtn.backgroundColor = [Theme colorForKey:@"button-cancel-background"];
     self.cancelBtn.titleLabel.font = [Theme fontForKey:@"button-cancel-title"];
     self.cancelBtn.titleLabel.textColor = [Theme colorForKey:@"button-cancel-title"];
+    UIImage *cancelIcon = [Theme imageForKey:@"button-share-cancel-image"];
+    if (cancelIcon) {
+        self.cancelBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [self.cancelBtn setTitle:nil forState:UIControlStateNormal];
+        [self.cancelBtn setImage:cancelIcon forState:UIControlStateNormal];
+    }
     
     self.sendBtn.backgroundColor = [Theme colorForKey:@"button-submit-background"];
     self.sendBtn.titleLabel.font = [Theme fontForKey:@"button-submit-title"];
     self.sendBtn.titleLabel.textColor = [Theme colorForKey:@"button-submit-title"];
+    UIImage *sendIcon = [Theme imageForKey:@"button-share-send-image"];
+    if (sendIcon) {
+        self.sendBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [self.sendBtn setTitle:nil forState:UIControlStateNormal];
+        [self.sendBtn setImage:sendIcon forState:UIControlStateNormal];
+    }
+    
     [self.textView.superview.layer setBorderColor:[UIColor colorWithWhite:0.85 alpha:1.0].CGColor];
     
     [self.textView.superview.layer setBorderWidth:1.0];
