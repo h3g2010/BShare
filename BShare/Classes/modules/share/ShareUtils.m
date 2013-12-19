@@ -306,13 +306,19 @@ NSString *SharePlatformQQ           = @"QQ";
     if (imagePath) {
         imageAttachment = [imagePath isURL] ? [ShareSDK imageWithUrl:imagePath] : [ShareSDK imageWithPath:imagePath];
     }
+    SSPublishContentMediaType mediaType = SSPublishContentMediaTypeNews;
+    if (!imagePath) {
+        mediaType = SSPublishContentMediaTypeText;
+    }else if(!content){
+        mediaType = SSPublishContentMediaTypeImage;
+    }
     id shareContent = [ShareSDK content:content
                          defaultContent:nil
                                   image:imageAttachment
                                   title:title?:AppName
                                     url:url?:@"http://"
                             description:AppName
-                              mediaType:SSPublishContentMediaTypeNews];
+                              mediaType:mediaType];
     NSMutableArray *shareList = [NSMutableArray arrayWithCapacity:3];
     for (SharePlatform *platform in platforms) {
         [shareList addObject:[NSNumber numberWithInt:platform.shareType]];

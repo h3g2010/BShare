@@ -33,6 +33,8 @@
     [sharePlatformView setAutoShare:YES];
     [sharePlatformView setShareContent:content];
     [sharePlatformView setShareImagePath:imagePath];
+    [sharePlatformView setShareUrl:url];
+    [sharePlatformView setShareTitle:title];
     [sharePlatformView show];
 
 }

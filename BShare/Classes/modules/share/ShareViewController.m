@@ -75,6 +75,8 @@
                                        action:@selector(send:)];
     [self layout];
     [self updateCountLabel];
+    self.textView.text = self.content;
+    self.imagePath = self.imagePath;
 }
 - (void) setContent:(NSString *)content{
     //RELEASE(_content);
