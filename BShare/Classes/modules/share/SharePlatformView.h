@@ -21,6 +21,9 @@
 @property (nonatomic, assign) BOOL autoShare;
 @property (nonatomic, strong) NSString *shareContent;
 @property (nonatomic, strong) NSString *shareImagePath;
+@property (nonatomic, strong) NSString *shareTitle;
+@property (nonatomic, strong) NSString *shareUrl;
+
 + (id)sharePlatformView;
 - (void)show;
 @end

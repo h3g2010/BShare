@@ -73,8 +73,6 @@
                                         frame:CGRectZero
                                        target:self
                                        action:@selector(send:)];
-    [self setContent:self.content];
-    [self setImagePath:self.imagePath];
     [self layout];
     [self updateCountLabel];
 }
@@ -119,6 +117,8 @@
         //分享
         __block BOOL isSend = NO;
         [ShareUtils shareOnPlatform:[NSArray arrayWithObject:self.sharePlatform]
+                          withTitle:self.shareTitle
+                            withUrl:self.shareUrl
                         withContent:self.textView.text
                       withImagePath:self.imagePath
                            callback:^(NSError *error) {

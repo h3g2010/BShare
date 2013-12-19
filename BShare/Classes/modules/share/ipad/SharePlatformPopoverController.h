@@ -21,6 +21,9 @@
 @property (nonatomic, strong) UIPopoverController *popover;
 @property (nonatomic, assign) BOOL autoShare;
 @property (nonatomic, strong) NSString *shareImagePath;
+@property (nonatomic, strong) NSString *shareContent;
+@property (nonatomic, strong) NSString *shareTitle;
+@property (nonatomic, strong) NSString *shareUrl;
 @property (nonatomic, strong) IBOutlet UIScrollView *contentView;
 @property (nonatomic, strong) id<SharePlatformPopoverControllerDelegate>delegate;
 @end

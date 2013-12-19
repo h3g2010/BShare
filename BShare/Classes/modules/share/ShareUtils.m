@@ -200,9 +200,10 @@ NSString *SharePlatformQQ           = @"QQ";
     
     //添加微信应用
     platform = [self confForApp:SharePlatformWeChat withConfigs:platforms];
-    if (platform)
+    if (platform){
         [ShareSDK connectWeChatWithAppId:platform.appId
                                wechatCls:[WXApi class]];
+    }
     //添加QQ应用
     platform = [self confForApp:SharePlatformQQ withConfigs:platforms];
     if (platform)
@@ -252,9 +253,9 @@ NSString *SharePlatformQQ           = @"QQ";
     //在授权页面中添加关注官方微博
     
     [authOptions setFollowAccounts:[NSDictionary dictionaryWithObjectsAndKeys:
-                                    [ShareSDK userFieldWithType:SSUserFieldTypeName valeu:@"张斯特罗"],
+                                    [ShareSDK userFieldWithType:SSUserFieldTypeName value:@"张斯特罗"],
                                     SHARE_TYPE_NUMBER(ShareTypeSinaWeibo),
-                                    [ShareSDK userFieldWithType:SSUserFieldTypeName valeu:@"张斯特罗"],
+                                    [ShareSDK userFieldWithType:SSUserFieldTypeName value:@"张斯特罗"],
                                     SHARE_TYPE_NUMBER(ShareTypeTencentWeibo),
                                     nil]];
     return authOptions;
@@ -263,7 +264,7 @@ NSString *SharePlatformQQ           = @"QQ";
     id authOptions = [self authOptions];
     [ShareSDK getUserInfoWithType:platform.shareType
                       authOptions:authOptions
-                           result:^(BOOL result, id<ISSUserInfo> userInfo, id<ICMErrorInfo> error) {
+                           result:^(BOOL result, id<ISSPlatformUser> userInfo, id<ICMErrorInfo> error) {
                                NSError *err = nil;
                                if (error) {
                                    err = [NSError errorWithDomain:@"Login error" code:[error errorCode] userInfo:[NSDictionary dictionaryWithObject:[error errorDescription] forKey:NSLocalizedDescriptionKey]];
@@ -273,13 +274,9 @@ NSString *SharePlatformQQ           = @"QQ";
                                    user = /*AUTORELEASE*/([[BUser alloc] init]);
                                    user.uid = userInfo.uid;
                                    user.nickname = userInfo.nickname;
-                                   user.avatar = userInfo.icon;
+                                   user.avatar = userInfo.profileImage;
                                    user.birthday = userInfo.birthday;
                                    user.gender = userInfo.gender?0:1;
-                                   user.age = userInfo.age;
-                                   user.mobile = userInfo.mobile;
-                                   user.education = userInfo.education;
-                                   user.school = userInfo.school;
                                    NSMutableDictionary *meta = [NSMutableDictionary dictionaryWithDictionary:[userInfo sourceData]];
                                    user.signature = [[userInfo sourceData] valueForKey:@"description"];
                                    user.metadata = meta;
@@ -297,7 +294,7 @@ NSString *SharePlatformQQ           = @"QQ";
     [ShareSDK cancelAuthWithType:platform.shareType];
     return YES;
 }
-+ (void) shareOnPlatform:(id)platforms withContent:(NSString *)content withImagePath:(NSString *)imagePath callback:(void (^)(NSError *error))callback{
++ (void) shareOnPlatform:(NSArray *)platforms withTitle:(NSString *)title withUrl:(NSString *)url withContent:(NSString *)content withImagePath:(NSString *)imagePath callback:(void (^)(NSError *error))callback{
     if (![platforms isKindOfClass:[NSArray class]]) {
         platforms = @[platforms];
     }
@@ -305,13 +302,17 @@ NSString *SharePlatformQQ           = @"QQ";
         return;
     }
     DLOG(@"share Image:%@", imagePath);
+    id imageAttachment = nil;
+    if (imagePath) {
+        imageAttachment = [imagePath isURL] ? [ShareSDK imageWithUrl:imagePath] : [ShareSDK imageWithPath:imagePath];
+    }
     id shareContent = [ShareSDK content:content
                          defaultContent:nil
-                                  image:[ShareSDK imageWithPath:imagePath]
-                                  title:@"[iVideo]"
-                                    url:@"http://"
-                            description:@"[iVideo]"
-                              mediaType:SSPublishContentMediaTypeText];
+                                  image:imageAttachment
+                                  title:title?:AppName
+                                    url:url?:@"http://"
+                            description:AppName
+                              mediaType:SSPublishContentMediaTypeNews];
     NSMutableArray *shareList = [NSMutableArray arrayWithCapacity:3];
     for (SharePlatform *platform in platforms) {
         [shareList addObject:[NSNumber numberWithInt:platform.shareType]];
@@ -322,7 +323,7 @@ NSString *SharePlatformQQ           = @"QQ";
                           type:[[shareList objectAtIndex:0] intValue]
                    authOptions:authOptions
                  statusBarTips:YES
-                        result:^(ShareType type, SSPublishContentState state, id<ISSStatusInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                        result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
                             if (state == SSPublishContentStateBegan) {
                                 return ;
                             }
@@ -343,7 +344,7 @@ NSString *SharePlatformQQ           = @"QQ";
                        shareList:shareList
                      authOptions:authOptions
                    statusBarTips:YES
-                          result:^(ShareType type, SSPublishContentState state, id<ISSStatusInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                          result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
                               if ((state != SSPublishContentStateSuccess) && (state != SSPublishContentStateFail)) {
                                   return ;
                               }
@@ -355,5 +356,8 @@ NSString *SharePlatformQQ           = @"QQ";
                                   callback(err);
                               }
                           }];
+}
++ (void) shareOnPlatform:(id)platforms withContent:(NSString *)content withImagePath:(NSString *)imagePath callback:(void (^)(NSError *error))callback{
+    [self shareOnPlatform:platforms withTitle:nil withUrl:nil withContent:content withImagePath:imagePath callback:callback];
 }
 @end

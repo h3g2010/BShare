@@ -72,6 +72,8 @@
         vc.autoSend = YES;
         vc.sharePlatform = platform;
         vc.imagePath = self.shareImagePath;
+        vc.shareTitle = self.shareTitle;
+        vc.content = self.shareContent;
         SlidingNavigationController *nav = [[SlidingNavigationController alloc] initWithRootViewController:vc];
         nav.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:nav animated:YES];

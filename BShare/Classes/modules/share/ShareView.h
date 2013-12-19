@@ -32,6 +32,8 @@ typedef int ShareViewType;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
 @property (nonatomic, strong) NSString *imagePath;
 @property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *shareTitle;
+@property (nonatomic, strong) NSString *shareUrl;
 @property (nonatomic, strong) NSString *placeholders;
 @property (nonatomic, assign) BOOL showCountLabel;
 @property (nonatomic, assign) id delegate;

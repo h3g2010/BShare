@@ -16,14 +16,18 @@
 @property (nonatomic, strong) IBOutlet UITextView *textView;
 @property (nonatomic, strong) IBOutlet UILabel *countLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
-@property (nonatomic, strong) NSString *imagePath;
-@property (nonatomic, strong) NSString *content;
 @property (nonatomic, assign) BOOL showCountLabel;
 @property (nonatomic, weak) id delegate;
 @property (nonatomic, assign) BOOL autoSend;
 @property (nonatomic, assign) ShareViewType shareViewType;
 @property (nonatomic, strong) SharePlatform *sharePlatform;
 @property (nonatomic, strong) UIView *backgroundView;
+
+
+@property (nonatomic, strong) NSString *imagePath;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *shareTitle;
+@property (nonatomic, strong) NSString *shareUrl;
 
 - (IBAction)send:(id)sender;
 - (IBAction)cancel:(id)sender;

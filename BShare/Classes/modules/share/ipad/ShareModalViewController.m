@@ -191,6 +191,8 @@
         //分享
         __block BOOL isSend = NO;
         [ShareUtils shareOnPlatform:[NSArray arrayWithObject:self.sharePlatform]
+                          withTitle:self.shareTitle
+                            withUrl:self.shareUrl
                         withContent:self.textView.text
                       withImagePath:self.imagePath
                            callback:^(NSError *error) {

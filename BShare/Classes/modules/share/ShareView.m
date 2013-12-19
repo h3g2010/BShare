@@ -174,8 +174,10 @@
     }
     if (self.autoSend && self.sharePlatform) {
         //分享
-        NSString *imagePath = isURL(self.imagePath) ? [UIImageView cachePathForURL:[NSURL URLWithString:self.imagePath]] : self.imagePath;
+        NSString *imagePath = self.imagePath;
         [ShareUtils shareOnPlatform:[NSArray arrayWithObject:self.sharePlatform]
+                          withTitle:self.shareTitle
+                            withUrl:self.shareUrl
                         withContent:self.textView.text
                       withImagePath:imagePath
                            callback:^(NSError *error) {

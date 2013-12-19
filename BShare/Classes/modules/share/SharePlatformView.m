@@ -147,6 +147,8 @@
             [shareView setTitle:platform.name];
             [shareView setContent:self.shareContent];
             [shareView setImagePath:self.shareImagePath];
+            [shareView setShareTitle:self.shareTitle];
+            [shareView setShareUrl:self.shareUrl];
             [shareView setShowCountLabel:YES];
             [shareView setAutoSend:YES];
             [shareView setSharePlatform:platform];
