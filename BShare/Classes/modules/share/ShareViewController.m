@@ -111,6 +111,12 @@
 }
 
 - (IBAction)send:(id)sender{
+    NSString *content = self.textView.text;
+    if ([content length]>self.maxTextLength) {
+        NSString *msg = [NSString stringWithFormat:@"不能超过%d个字符",self.maxTextLength];
+        [BIndicator showMessageAndFadeOut:NSLocalizedString(msg, nil)];
+        return;
+    }
     BOOL shouldCancel = YES;
     if (self.delegate && [self.delegate respondsToSelector:@selector(shareView:shouldSendContent:withImagePath:)]) {
         shouldCancel = [self.delegate shareView:(id)self shouldSendContent:self.textView.text withImagePath:self.imagePath];
@@ -168,8 +174,11 @@
 }
 - (void)keyboardWillHide:(NSNotification *)notif{
 }
+- (int)maxTextLength{
+    return _maxTextLength>0?_maxTextLength:140;
+}
 - (void)updateCountLabel{
-    int textCount = 140 - [self.textView.text length];
+    int textCount = self.maxTextLength - [self.textView.text length];
     self.countLabel.text = [NSString stringWithFormat:@"%d", textCount];
     self.countLabel.textColor = textCount>=0 ? [UIColor blackColor] : [UIColor redColor];
 }

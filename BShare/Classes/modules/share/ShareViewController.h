@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *shareTitle;
 @property (nonatomic, strong) NSString *shareUrl;
+@property (nonatomic, assign) int maxTextLength;
 
 - (IBAction)send:(id)sender;
 - (IBAction)cancel:(id)sender;

@@ -178,6 +178,12 @@
     [self.imageView setImageURL:imageURL];
 }
 - (IBAction)send:(id)sender{
+    NSString *content = self.textView.text;
+    if ([content length]>self.maxTextLength) {
+        NSString *msg = [NSString stringWithFormat:@"不能超过%d个字符",self.maxTextLength];
+        [BIndicator showMessageAndFadeOut:NSLocalizedString(msg, nil)];
+        return;
+    }
     if (self.shareViewType == ShareViewTypeShare && self.sharePlatforms.count==0) {
         [self showMessageAndFadeOut:NSLocalizedString(@"至少选择一个分享平台!", nil)];
         return;
@@ -216,8 +222,11 @@
     [self didCancel];
 }
 
+- (int)maxTextLength{
+    return _maxTextLength>0?_maxTextLength:140;
+}
 - (void)updateCountLabel{
-    int textCount = 140 - [self.textView.text length];
+    int textCount = self.maxTextLength - [self.textView.text length];
     self.countLabel.text = [NSString stringWithFormat:@"%d", textCount];
     self.countLabel.textColor = textCount>=0 ? [UIColor blackColor] : [UIColor redColor];
 }

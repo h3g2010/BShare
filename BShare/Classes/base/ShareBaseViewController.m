@@ -45,6 +45,8 @@
     ShareView *shareView = [ShareView shareView];
     [shareView setTitle:NSLocalizedString(@"评论", nil)];
     [shareView setDelegate:self];
+    [shareView setShowCountLabel:YES];
+    [shareView setMaxTextLength:MaxCommentTextLength];
     [shareView setShareViewType:ShareViewTypeComment];
     [shareView show];
 }

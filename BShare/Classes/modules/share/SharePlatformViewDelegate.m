@@ -32,7 +32,17 @@
     UIButton *btn = (id)viewController.navigationItem.leftBarButtonItem.customView;
     UIButton *backBtn = [Theme buttonForKey:@"navigationbar-back-button"];
     btn.frame = backBtn.frame;
-    [btn setImage:[backBtn imageForState:UIControlStateNormal] forState:UIControlStateNormal];
+    if ([backBtn imageForState:UIControlStateNormal]) {
+        [btn setImage:[backBtn imageForState:UIControlStateNormal] forState:UIControlStateNormal];
+        [btn setTitle:nil forState:UIControlStateNormal];
+        [btn setBackgroundImage:nil forState:UIControlStateNormal];
+        [self performSelector:@selector(updateBackButton:) withObject:viewController.navigationItem.leftBarButtonItem afterDelay:0.1];
+    }
+}
+- (void)updateBackButton:(UIBarButtonItem *)barBtn{
+    [barBtn setStyle:UIBarButtonItemStylePlain];
+    UIButton *btn = (UIButton *)[barBtn customView];
+    [btn setBackgroundImage:nil forState:UIControlStateNormal];
 }
 
 - (void)view:(UIViewController *)viewController autorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation shareType:(ShareType)shareType

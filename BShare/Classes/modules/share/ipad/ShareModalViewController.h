@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) id params;
 @property (nonatomic, strong) IBOutlet UIView *platformContainer;
+@property (nonatomic, assign) int maxTextLength;
 
 
 @property (nonatomic, strong) NSString *imagePath;

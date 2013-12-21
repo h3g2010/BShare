@@ -40,6 +40,7 @@ typedef int ShareViewType;
 @property (nonatomic, assign) BOOL autoSend;
 @property (nonatomic, assign) ShareViewType shareViewType;
 @property (nonatomic, strong) SharePlatform *sharePlatform;
+@property (nonatomic, assign) int maxTextLength;
 
 + (id)shareView;
 - (void)show;
