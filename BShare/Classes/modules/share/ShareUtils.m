@@ -157,6 +157,7 @@ NSString *SharePlatformQQ           = @"QQ";
     //添加新浪微博应用
     NSArray *platforms = [self platforms];
     SharePlatform *platform = [self confForApp:SharePlatformSinaWeibo withConfigs:platforms];
+    DLOG(@"%@",platform.redirectUri);
     if (platform)
         [ShareSDK connectSinaWeiboWithAppKey:platform.appKey
                                    appSecret:platform.appSecret

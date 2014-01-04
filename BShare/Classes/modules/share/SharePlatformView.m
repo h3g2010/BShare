@@ -96,14 +96,13 @@
         [self.contentView addSubview:iconView];
     }
     self.shareViews = shareViews;
-    UIButton *cancenBtn = [Theme buttonForStyle:@"shareplatform-cancel"
+    UIButton *cancelBtn = [Theme buttonForStyle:@"shareplatform-cancel"
                                       withTitle:NSLocalizedString(@"取 消", nil)
                                           frame:CGRectMake(10, rect.origin.y + rect.size.height + 10, contentViewFrame.size.width-20, 36)
                                          target:self
                                          action:@selector(cancel:)];
-    
-    [self.contentView addSubview:cancenBtn];
-    contentViewFrame.size.height = cancenBtn.frame.origin.y + cancenBtn.frame.size.height + 10;
+    [self.contentView addSubview:cancelBtn];
+    contentViewFrame.size.height = cancelBtn.frame.origin.y + cancelBtn.frame.size.height + 10;
     contentViewFrame.origin.y = self.frame.size.height - contentViewFrame.size.height;
     self.contentView.frame = contentViewFrame;
     [self addSubview:self.contentView];

@@ -54,6 +54,7 @@ extern NSString *SharePlatformQQ;
 + (BOOL) hasAuthorizedWithPlatform:(SharePlatform *)platform;
 + (BOOL) cancelAuthWithPlatform:(SharePlatform *)platform;
 
++ (id)authOptions;
 + (void) shareOnPlatform:(NSArray *)platforms withTitle:(NSString *)title withUrl:(NSString *)url withContent:(NSString *)content withImagePath:(NSString *)imagePath callback:(void (^)(NSError *error))callback;
 + (void) shareOnPlatform:(NSArray *)platforms withContent:(NSString *)content withImagePath:(NSString *)imagePath callback:(void (^)(NSError *error))callback;
 @end
