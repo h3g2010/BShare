@@ -302,6 +302,7 @@ NSString *SharePlatformQQ           = @"QQ";
     if ([platforms count] == 0) {
         return;
     }
+    SharePlatform *platform = [platforms objectAtIndex:0];
     DLOG(@"share Image:%@", imagePath);
     id imageAttachment = nil;
     if (imagePath) {
@@ -313,11 +314,13 @@ NSString *SharePlatformQQ           = @"QQ";
     }else if(!content){
         mediaType = SSPublishContentMediaTypeImage;
     }
+    NSString *shareUrl = url?:([imagePath isURL]?imagePath:platform.redirectUri);
+    shareUrl = [shareUrl isURL]?shareUrl:@"http://";
     id shareContent = [ShareSDK content:content
                          defaultContent:nil
                                   image:imageAttachment
                                   title:title?:AppName
-                                    url:url?:([imagePath isURL]?imagePath:@"http://m.tvie.com.cn/mcms/mobile")
+                                    url:shareUrl
                             description:AppName
                               mediaType:mediaType];
     NSMutableArray *shareList = [NSMutableArray arrayWithCapacity:3];
