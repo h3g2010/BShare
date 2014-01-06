@@ -12,7 +12,6 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "SharePlatformViewDelegate.h"
-#import <RennSDK/RennSDK.h>
 
 NSString *SharePlatformSinaWeibo    = @"SinaWeibo";
 NSString *SharePlatformSohuWeibo    = @"SohuWeibo";
@@ -196,12 +195,9 @@ NSString *SharePlatformQQ           = @"QQ";
     
     //添加人人网应用
     platform = [self confForApp:SharePlatformRenRen withConfigs:platforms];
-    if (platform){
-        [ShareSDK connectRenRenWithAppId:platform.appId
-                                  appKey:platform.appKey
-                               appSecret:platform.appSecret
-                       renrenClientClass:[RennClient class]];
-    }
+    if (platform)
+        [ShareSDK connectRenRenWithAppKey:platform.appKey
+                                appSecret:platform.appSecret];
     
     //添加微信应用
     platform = [self confForApp:SharePlatformWeChat withConfigs:platforms];
@@ -311,14 +307,14 @@ NSString *SharePlatformQQ           = @"QQ";
     if (imagePath) {
         imageAttachment = [imagePath isURL] ? [ShareSDK imageWithUrl:imagePath] : [ShareSDK imageWithPath:imagePath];
     }
-    SSPublishContentMediaType mediaType = SSPublishContentMediaTypeText;
+    SSPublishContentMediaType mediaType = SSPublishContentMediaTypeNews;
     if (!imagePath) {
         mediaType = SSPublishContentMediaTypeText;
     }else if(!content){
         mediaType = SSPublishContentMediaTypeImage;
     }
     id shareContent = [ShareSDK content:content
-                         defaultContent:@""
+                         defaultContent:nil
                                   image:imageAttachment
                                   title:title?:AppName
                                     url:url?:([imagePath isURL]?imagePath:@"http://m.tvie.com.cn/mcms/mobile")
