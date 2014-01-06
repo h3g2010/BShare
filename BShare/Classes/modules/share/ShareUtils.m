@@ -12,6 +12,7 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "SharePlatformViewDelegate.h"
+#import <RennSDK/RennSDK.h>
 
 NSString *SharePlatformSinaWeibo    = @"SinaWeibo";
 NSString *SharePlatformSohuWeibo    = @"SohuWeibo";
@@ -195,9 +196,12 @@ NSString *SharePlatformQQ           = @"QQ";
     
     //添加人人网应用
     platform = [self confForApp:SharePlatformRenRen withConfigs:platforms];
-    if (platform)
-        [ShareSDK connectRenRenWithAppKey:platform.appKey
-                                appSecret:platform.appSecret];
+    if (platform){
+        [ShareSDK connectRenRenWithAppId:platform.appId
+                                  appKey:platform.appKey
+                               appSecret:platform.appSecret
+                       renrenClientClass:[RennClient class]];
+    }
     
     //添加微信应用
     platform = [self confForApp:SharePlatformWeChat withConfigs:platforms];
@@ -307,17 +311,17 @@ NSString *SharePlatformQQ           = @"QQ";
     if (imagePath) {
         imageAttachment = [imagePath isURL] ? [ShareSDK imageWithUrl:imagePath] : [ShareSDK imageWithPath:imagePath];
     }
-    SSPublishContentMediaType mediaType = SSPublishContentMediaTypeNews;
+    SSPublishContentMediaType mediaType = SSPublishContentMediaTypeText;
     if (!imagePath) {
         mediaType = SSPublishContentMediaTypeText;
     }else if(!content){
         mediaType = SSPublishContentMediaTypeImage;
     }
     id shareContent = [ShareSDK content:content
-                         defaultContent:nil
+                         defaultContent:@""
                                   image:imageAttachment
                                   title:title?:AppName
-                                    url:url?:@"http://"
+                                    url:url?:([imagePath isURL]?imagePath:@"http://m.tvie.com.cn/mcms/mobile")
                             description:AppName
                               mediaType:mediaType];
     NSMutableArray *shareList = [NSMutableArray arrayWithCapacity:3];
