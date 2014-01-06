@@ -254,9 +254,9 @@ NSString *SharePlatformQQ           = @"QQ";
     //在授权页面中添加关注官方微博
     
     [authOptions setFollowAccounts:[NSDictionary dictionaryWithObjectsAndKeys:
-                                    [ShareSDK userFieldWithType:SSUserFieldTypeName value:@"张斯特罗"],
+                                    [ShareSDK userFieldWithType:SSUserFieldTypeName value:@"第X频道"],
                                     SHARE_TYPE_NUMBER(ShareTypeSinaWeibo),
-                                    [ShareSDK userFieldWithType:SSUserFieldTypeName value:@"张斯特罗"],
+                                    [ShareSDK userFieldWithType:SSUserFieldTypeName value:@"第X频道"],
                                     SHARE_TYPE_NUMBER(ShareTypeTencentWeibo),
                                     nil]];
     return authOptions;
