@@ -40,7 +40,7 @@
     for (int i = 0; i < n; i++) {
         int line = i/numOfLine;
         int column = i%numOfLine;
-        rect = CGRectMake(column*(rect.size.width+padding)+padding, line*(rect.size.height+10)+padding, rect.size.width, rect.size.height);
+        rect = CGRectMake(column*(rect.size.width+padding)+padding, line*rect.size.height, rect.size.width, rect.size.height);
         
         SharePlatform *platform = [sharePlatforms objectAtIndex:i];
         BImageView *iconView = /*AUTORELEASE*/([[BImageView alloc] initWithFrame:rect]);
